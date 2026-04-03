@@ -29,9 +29,8 @@ body::before{
 .layer{position:absolute;inset:-20%;}
 .l1{background:radial-gradient(circle at 20% 30%, rgba(255,80,0,.15), transparent 50%);} 
 .l2{background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.8) 80%);} 
-.l3{background:repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px);} /* grime lines */
+.l3{background:repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px);}
 
-/* HEADER / HERO */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   padding:120px 10%;position:relative;z-index:1;
@@ -50,7 +49,6 @@ h1{
 
 .lead{max-width:720px;margin-top:20px;line-height:1.6;color:#cfcfcf}
 
-/* DIVIDER */
 .divider{
   height:2px;background:linear-gradient(90deg, transparent, #ff5a1f, transparent);
   margin:60px 0;
@@ -70,7 +68,6 @@ h2{
 
 p{max-width:780px;line-height:1.7;color:#d7d7d7;margin:12px 0}
 
-/* VIZ CARD — CONCRETE / GRAFFITI */
 .viz{
   margin:40px 0;padding:18px;border-radius:6px;
   background:#141414;border:1px solid #2a2a2a;
@@ -78,7 +75,7 @@ p{max-width:780px;line-height:1.7;color:#d7d7d7;margin:12px 0}
   position:relative;overflow:hidden;
 }
 
-.viz::after{ /* paint streak */
+.viz::after{
   content:"";position:absolute;left:-20%;top:0;width:140%;height:100%;
   background:linear-gradient(110deg, transparent 0%, rgba(255,90,31,.15) 40%, transparent 60%);
   transform:skewX(-12deg);
@@ -88,7 +85,7 @@ p{max-width:780px;line-height:1.7;color:#d7d7d7;margin:12px 0}
 /* FRAME WITH ASPECT RATIO */
 .frame {
   width: 100%;
-  aspect-ratio: 2 / 1; /* adjust to match PNG/plot aspect ratio */
+  aspect-ratio: 2 / 1;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -103,28 +100,23 @@ p{max-width:780px;line-height:1.7;color:#d7d7d7;margin:12px 0}
 .frame iframe {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* keeps proportions */
+  object-fit: contain;
   display: block;
 }
 
 .caption{font-family:'Roboto Mono', monospace;font-size:.85rem;color:#a8a8a8;margin-top:10px}
 
-/* CALLOUT */
 .callout{
   margin-top:20px;padding:14px 16px;border-left:4px solid #ff5a1f;background:#111;
   font-family:'Roboto Mono', monospace;color:#e6e6e6
 }
 
-/* FOOTER */
 footer{padding:40px 10%;color:#9a9a9a;border-top:1px solid #222}
 
-/* PROGRESS BAR */
 #progress{position:fixed;top:0;left:0;height:3px;background:#ff5a1f;width:0%;z-index:999}
 
-/* INTERACTIONS */
 .viz:hover{transform:translateY(-4px);transition:.25s}
 
-/* SMALL SCREEN */
 @media (max-width: 768px){
   h1{font-size:2.6rem}
   .frame{aspect-ratio:2 / 1; height:auto;}
@@ -184,30 +176,41 @@ changes in police patrols during weekends.
   <p>We see both <strong>concentrated clusters</strong> and scattered activity, with clear hotspots in the <strong>Mission</strong> and <strong>Tenderloin</strong> districts.</p>
   <p>Interestingly, similar hotspots appear in the <strong>2003-08</strong> data, even though overall counts for this category have <strong>dropped sharply</strong> in recent years.</p>
   <p>Some areas that were hot in 2003-08 now report almost <strong>no incidents</strong>, which could reflect actual changes in behavior, or yet another shift in <strong>police activity</strong>.</p>
-  <div class="callout">Prostitution crimes are happening less frequently but in the same places</div>
+  <div class="callout">Prostitution crimes are happening less frequently but in similar neighborhoods</div>
 </section>
 
 <!-- SECTION 3: PLOTLY -->
 <section>
-  <h2>[Insight 3 — Title]</h2>
-  <div class="kicker">How it changes</div>
-  <p>[TEXT ABOVE — trends / distributions]</p>
+  <h2>LET'S TALK NUMBERS</h2>
+  <div class="kicker">Trends over time highlighted for districts</div>
+  <p>Let's explore deeply the changes over the years with the following interactive plot. District counts are stacked on top of each other.</p>
 
-  <div class="viz">
-    <div class="frame">
-      <iframe src="[YOUR PLOTLY URL OR EMBED]" frameborder="0"></iframe>
-    </div>
-    <div class="caption">Interactive trends over time</div>
+   <div class="viz" style="position: relative; width: 100%; padding-bottom: 50%; height: 0;">
+    <iframe 
+      src="images/plotly_prostitution.html"
+      style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;"
+      title="Prostitution activity stacked by district over time">
+    </iframe>
   </div>
 
-  <p>[TEXT BELOW — final analytical takeaway]</p>
-  <div class="callout">[KEY TAKEAWAY]</div>
+  <div class="caption">
+    <ul>A stacked line plot showing the counts of reported prostitution crimes in time.</ul>
+
+    <ul style="margin:0; padding-left:20px; padding-top: 10px;">
+      <li><strong>District selection:</strong> Toggle from the dropdown.</li>
+      <li><strong>Time zoom:</strong> Use the range slider at the bottom to focus on specific periods</li>
+      <li><strong>Hover:</strong> Shows counts per district per month.</li>
+    </ul>
+  </div>
+
+  <p>A consistent decrease in the number of reported incidents is an overall trend, while in the district of Mission we see the numbers are remaining stable even after the COVID pandemic. This shows there is something unique about this neighborhood, but it might also be caused by biases.</p>
+  <div class="callout">Prostitution crimes are less and less prevalent compared to the past 20 years</div>
 </section>
 
 <!-- CONCLUSION -->
 <section>
   <h2>Conclusion</h2>
-  <p>[CONCLUSION — synthesis and next steps]</p>
+  <p>Even as overall incidents decline, the Mission and Tenderloin remain hotspots, with activity peaking between 8 PM and midnight. Midweek can be busier than weekends, highlighting subtle patterns in street behavior. Timing and location clearly matter, and understanding these trends can guide both analysis and policy decisions.</p>
 </section>
 
 <footer>
@@ -222,14 +225,12 @@ changes in police patrols during weekends.
 </footer>
 
 <script>
-// reveal on scroll
 const sections=document.querySelectorAll('section');
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
 },{threshold:.2});
 sections.forEach(s=>io.observe(s));
 
-// parallax + progress bar
 window.addEventListener('scroll',()=>{
   const y=window.scrollY;
   document.querySelectorAll('.layer').forEach(l=>{
