@@ -116,6 +116,7 @@
             width: 100%;
             max-width: var(--max-text);
             margin: 0 auto;
+            margin-bottom: 2rem;
             padding: 0 1.5rem;
         }
         .container-wide {
@@ -393,6 +394,15 @@
         .insight-bar.warm-bar {
             border-left-color: var(--accent-warm);
         }
+        .chart-caption {
+        margin-top: 0.4rem;
+        margin-bottom: 4rem;
+        text-align: center;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+        padding: 0 0.5rem;
+        }
 
         @media (max-width: 500px) {
             .stat-row {
@@ -498,12 +508,13 @@
             <p>The budget distribution across our 8,181 films follows a striking pattern: the vast majority of films are made for under <strong>$50 million</strong>, with a long tail of big budget productions stretching into the hundreds of millions.</p>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/budget_distribution.html" 
-                        style="width:100%; height:520px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/budget_distribution.html" 
+                            style="width:100%; height:520px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 1: Budget distribution across 8,181 films.</figcaption>
+            </figure>
         </div>
         <div class="container">
             <p>This exponential decay shape means the median film budget is far lower than the average, a few giant productions pull the mean upward while the typical movie operates on a much tighter budget.</p>
@@ -524,12 +535,13 @@
                 <strong>the highest ROI films are overwhelmingly in the $10K-$20M budget range</strong>. 
                 Big budget films rarely achieve extreme ROI multiples.</p>        </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/budget_vs_roi_zoom.html" 
-                        style="width:100%; height:520px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/budget_vs_roi_zoom.html" 
+                            style="width:100%; height:520px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 2: ROI distribution across budgets.</figcaption>
+            </figure>
         </div>
         <div class="container">
             <div class="insight-bar">
@@ -545,12 +557,13 @@
             <p>Before filtering, the rating distribution showed a pretty good gaussian bell distribution with an some odd spikes at integer values (expected) and at the maximum value of 10.</p>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/ratings_distribution.html" 
-                        style="width:100%; height:520px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/ratings_distribution.html" 
+                            style="width:100%; height:520px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 3: Ratings distribution without the filter on vote count.</figcaption>
+            </figure>
         </div>
         <div class="container">
             <div class="insight-bar">
@@ -591,12 +604,13 @@
             <p>When we break down the outlier groups by genre, a clear pattern emerges: <strong>Drama films are heavily overrepresented among the critically acclaimed but financially unsuccessful</strong>. Horror and Comedy appear more frequently in the "profitable but bad" group.</p>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/genre_heatmap.html"
-                        style="width:100%; height: 720px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/genre_heatmap.html" 
+                            style="width:100%; height:720px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 4: Heatmap of genre ratios in identified outlier groups.</figcaption>
+            </figure>
         </div>
         <div class="container">
             <div class="insight-bar warm-bar">
@@ -612,12 +626,13 @@
             <p>Analyzing release months reveals a temporal pattern: "unprofitable but good" movies show a notable <strong>peak in September</strong>, often a month when studios release prestige, awards season contenders that may not prioritize box office returns.</p>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/genre_month_heatmap.html"
-                        style="width:100%; height: 380px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/genre_month_heatmap.html" 
+                            style="width:100%; height:380px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 5: Heatmap of outlier groups stratified by month.</figcaption>
+            </figure>
         </div>
     </section>
 
@@ -628,30 +643,31 @@
             <p>Below are additional visualizations for the curious reader that wants a deeper exploration</p>
         </div>
         <div class="container-chart">
-            <div class="container-chart">
-                <div class="chart-container">
-                    <iframe src="images/budget_vs_rating.html"
-                            style="width:100%; height: 820px; border:none;"
+            <figure class="chart-figure">
+                    <iframe src="images/budget_vs_rating.html" 
+                            style="width:100%; height:720px; border:none;"
                             loading="lazy">
                     </iframe>
-                </div>
-            </div>
+                <figcaption class="chart-caption">Figure 6: Interactive plot to explore patterns across genres.</figcaption>
+            </figure>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/ratio_per_genre.html"
-                        style="width:100%; height: 380px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/ratio_per_genre.html" 
+                            style="width:100%; height:380px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 7: Ratios of positive ROI per genre, indicating the percentage of movies in that category earned money.</figcaption>
+            </figure>
         </div>
         <div class="container-chart">
-            <div class="chart-container">
-                <iframe src="images/top10_summary.html"
-                        style="width:100%; height: 500px; border:none;"
-                        loading="lazy">
-                </iframe>
-            </div>
+            <figure class="chart-figure">
+                    <iframe src="images/top10_summary.html" 
+                            style="width:100%; height:550px; border:none;"
+                            loading="lazy">
+                    </iframe>
+                <figcaption class="chart-caption">Figure 8: Table showing full information for Top 10 ROI movies in the two outlier groups</figcaption>
+            </figure>
         </div>
         
     </section>
@@ -661,6 +677,7 @@
             <span class="section-label">Discussion</span>
             <h2>What we learned, and what we didn't.</h2>
             <p>This analysis succeeded in extracting a reliable subset from a very noisy dataset and identifying meaningful patterns between financial performance and audience perception. The iterative approach, identifying issues through exploration and responding with targeted filters, was key.</p>
+            <br>
             <h3>Strengths</h3>
             <ul>
                 <li>Rigorous data cleaning driven by observed problems (vote count threshold, zero value handling)</li>
@@ -668,6 +685,7 @@
                 <li>Coherent findings: high ROI concentration in low budgets, Drama's dominance among "unprofitable but good"</li>
                 <li>Combination of quantitative analysis and qualitative follow up on extreme outliers</li>
             </ul>
+            <br>
             <h3>Limitations</h3>
             <ul>
                 <li>Treating zero values as missing likely biases toward commercial productions</li>
