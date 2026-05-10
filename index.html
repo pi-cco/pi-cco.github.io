@@ -134,7 +134,7 @@
         }
         @media (min-width: 768px) {
             section {
-                padding: 6.5rem 0;
+                padding: 4.5rem 0;
             }
         }
 
@@ -403,6 +403,68 @@
         line-height: 1.4;
         padding: 0 0.5rem;
         }
+        .roi-calculator {
+        max-width: 700px;
+        margin: 2.8rem auto 2rem;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 2rem 2.2rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+        .roi-calculator h3 {
+        font-size: 1.2rem;
+        font-weight: 650;
+        margin-bottom: 0.2rem;
+        }
+        .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.8rem 0 1.3rem;
+        }
+        .slider-label {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+        min-width: 5rem;
+        }
+        .budget-value {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--accent-warm);
+        min-width: 8rem;
+        text-align: right;
+        }
+        input[type=range] {
+        flex: 1;
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        outline: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+        .result-row {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+        }
+        .roi-value {
+        font-weight: 750;
+        font-size: 2rem;
+        color: var(--accent);
+        line-height: 1;
+        }
 
         @media (max-width: 500px) {
             .stat-row {
@@ -525,27 +587,51 @@
         <div class="container">
             <span class="section-label">Return on Investment</span>
             <h2>Big budgets don't guarantee big returns.</h2>
-                <p>We calculated ROI as 
+            <p>We calculated ROI as 
 
-                \[
-                ROI = \frac{revenue - budget}{budget}
-                \]
+            \[
+            ROI = \frac{revenue - budget}{budget}
+            \]
 
-                for each film. The results reveal a powerful pattern: 
-                <strong>the highest ROI films are overwhelmingly in the $10K-$20M budget range</strong>. 
-                Big budget films rarely achieve extreme ROI multiples.</p>        </div>
+            for each film. The results reveal a powerful pattern: 
+            <strong>the highest ROI films are overwhelmingly in the $10K-$20M budget range</strong>. 
+            Big budget films rarely achieve extreme ROI multiples.</p>
+        </div>
+
         <div class="container-chart">
             <figure class="chart-figure">
-                    <iframe src="images/budget_vs_roi_zoom.html" 
-                            style="width:100%; height:520px; border:none;"
-                            loading="lazy">
-                    </iframe>
+                <iframe src="images/budget_vs_roi_zoom.html" 
+                        style="width:100%; height:520px; border:none;"
+                        loading="lazy">
+                </iframe>
                 <figcaption class="chart-caption">Figure 2: ROI distribution across budgets.</figcaption>
             </figure>
         </div>
+
         <div class="container">
             <div class="insight-bar">
-                <p><strong>Key insight:</strong> ROI is inherently sensitive to small budgets. A $50K film earning $500K achieves a 10x ROI, while a $200M blockbuster would need $2B to match that multiple. This mathematical reality concentrates high ROI outcomes in the low budget range.</p>
+                <p><strong>Key insight:</strong> ROI is inherently sensitive to small budgets. A $50K film earning $500K achieves a 10× ROI, while a $200M blockbuster would need $2B to match that multiple. This mathematical reality concentrates high‑ROI outcomes in the low‑budget range.</p>
+            </div>
+
+            <!-- Calculator inside a narrower, centered wrapper -->
+            <div class="roi-calculator">
+                <h3 style="margin-top:0;">Explore the budget-ROI relationship yourself</h3>
+                <p style="font-size:0.98rem;color:var(--text-muted);margin-bottom:1.6rem;">
+                    Drag the slider to see how a film's budget relates to its expected median ROI.
+                </p>
+                <div class="slider-row">
+                    <label for="budgetSlider" class="slider-label">Budget</label>
+                    <span class="budget-value" id="budgetVal">$5,000,000</span>
+                    <input type="range" id="budgetSlider" min="20000" max="150000000" step="20000" value="50000000">
+                </div>
+                <div class="result-row">
+                    <span>Estimated median ROI ≈</span>
+                    <span class="roi-value" id="roiEst">1.8</span>
+                    <span>x</span>
+                </div>
+                <p class="text-muted" style="margin-top:0.8rem;font-size:0.83rem;">
+                    Based on a smoothed power law fit to the 8,181 films. Actual returns vary strongly, especially at very low budgets.
+                </p>
             </div>
         </div>
     </section>
@@ -763,35 +849,28 @@
         })();
     </script>
 
-    <!--
-    ═══════════════════════════════════════════════════════
-    PLOTLY CHART INSERTION GUIDE
-    ═══════════════════════════════════════════════════════
+    <script>
+    (function() {
+    const a = 175;  
+    const b = -0.2778;  
+    const maxROI  = 20; 
 
-    Available chart container IDs:
-    · chart-budget-dist          (Budget Distribution histogram)
-    · chart-budget-roi-scatter   (Budget vs ROI scatter)
-    · chart-rating-dist          (Rating Distribution histogram)
-    · chart-genre-outliers       (Genre breakdown for outlier groups)
-    · chart-seasonal             (Release month distribution)
-    · chart-roi-dist             (ROI Distribution histogram)
-    · chart-explore              (Additional exploration chart)
+    const slider    = document.getElementById('budgetSlider');
+    const valDisplay = document.getElementById('budgetVal');
+    const roiDisplay = document.getElementById('roiEst');
 
-    Insert a Plotly chart with:
-      Plotly.newPlot('chart-budget-dist', [{
-          x: budgetData,
-          type: 'histogram',
-          nbinsx: 60,
-          marker: { color: '#4a6d8c' }
-      }], {
-          paper_bgcolor: '#fff',
-          plot_bgcolor: '#f9f9f7',
-          margin: { t: 40, r: 20, b: 50, l: 60 }
-      });
+    function update() {
+        const budget = +slider.value;
+        valDisplay.textContent = '$' + budget.toLocaleString();
+        let roi = a * Math.pow(budget, b);
+        roi = Math.min(roi, maxROI);         
+        roi = Math.max(roi, 0);               
+        roiDisplay.textContent = roi.toFixed(2);
+    }
 
-    For images, replace the .img-placeholder div with:
-      <img src="your-chart.png" alt="..." style="width:100%;border-radius:8px;">
-    ═══════════════════════════════════════════════════════
-    -->
+    slider.addEventListener('input', update);
+    update();
+    })();
+    </script>
 </body>
 </html>
