@@ -9,7 +9,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'media',
       theme: {
         extend: {
           colors: {
@@ -34,25 +33,13 @@
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
 
     :root {
-      --bg-color: #FDFBF7;
+      --bg-color: #FDF8F5;
       --surface-color: #FFFFFF;
-      --clay-color: #A35738;
-      --slate-color: #1D1D1F;
-      --muted-color: #78716C;
-      --border-color: #F5F5F4;
-      --grid-color: rgba(0, 0, 0, 0.03);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #0c0a09;
-        --surface-color: #1c1917;
-        --clay-color: #E27D54;
-        --slate-color: #F5F5F4;
-        --muted-color: #A8A29E;
-        --border-color: #292524;
-        --grid-color: rgba(255, 255, 255, 0.03);
-      }
+      --clay-color: #E8B4A0;
+      --slate-color: #3A3A3A;
+      --muted-color: #A09890;
+      --border-color: #F0E8E4;
+      --grid-color: rgba(232, 180, 160, 0.06);
     }
 
     body {
@@ -83,16 +70,11 @@
 
     .mountain-overlay {
       position: fixed; bottom: 0; left: 0; width: 100%; height: 100%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23A35738' fill-opacity='0.03' d='M0,160L120,186.7C240,213,480,267,720,261.3C960,256,1200,192,1320,160L1440,128L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23E8B4A0' fill-opacity='0.04' d='M0,160L120,186.7C240,213,480,267,720,261.3C960,256,1200,192,1320,160L1440,128L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
       background-size: cover; z-index: -1; pointer-events: none;
       opacity: 1;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .mountain-overlay {
-        opacity: 0.3;
-      }
-    }
   </style>
 
   <!-- Import Maps for React, Framer Motion, and Lucide -->
@@ -115,7 +97,7 @@
 
   <!-- Application Code -->
   <script type="text/babel" data-type="module">
-    import React, { useState } from 'react';
+    import React from 'react';
     import { createRoot } from 'react-dom/client';
     import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
     import { Plane, Award, Send, ArrowRight, Github, Linkedin, FileText, Activity, Database, Cpu, Mountain, Utensils, Headphones, ChevronDown } from 'lucide-react';
@@ -347,38 +329,53 @@
           Projects Portfolio
         </motion.h3>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {[
             { tag: 'Report', title: 'Crime Patterns & Evolution', desc: 'Combined spatial and temporal analysis of 20 years of urban crime data.', img: 'images/temporal-trends.png', link: 'case-study-1.html' },
-            { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'rc-support.html' }
+            { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'case-study-2.html' },
+            { tag: 'Report', title: 'Movie Industry Economics', desc: 'Analysis of budget, revenue and ratings uncovering the disconnect between financial success and critical acclaim.', img: 'visualizations/budget_vs_rating.png', link: 'case-study-3.html' },
+            { tag: 'Report', title: 'Smash Bros Skills Analysis', desc: 'Compositional data analysis of Super Smash Bros character skills using ILR, clustering and subcompositional PCA.', img: 'visualizations/ternary.png', link: 'case-study-4.html' }
           ].map((proj, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.2 }}
-              className="bg-surface rounded-[2rem] border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer relative"
-              whileHover={{ y: -8 }}
-              onClick={() => window.location.href = proj.link} // <-- navigate on click
+              transition={{ delay: idx * 0.15 }}
+              className="bg-surface rounded-2xl border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer relative"
+              whileHover={{ y: -6 }}
+              onClick={() => window.location.href = proj.link}
             >
-              <div className="h-64 bg-border overflow-hidden relative">
-                <div className="absolute inset-0 bg-slate/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                <img
-                  src={proj.img}
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                  alt={proj.title}
-                />
+              <div className="h-44 bg-gradient-to-br from-clay/20 to-border overflow-hidden relative">
+                <div className="absolute inset-0 bg-slate/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+                {proj.img ? (
+                  <img
+                    src={proj.img}
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                    alt={proj.title}
+                  />
+                ) : proj.plot ? (
+                  <iframe
+                    src={proj.plot}
+                    className="w-full h-full border-none pointer-events-none"
+                    title={proj.title}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-6xl opacity-10 font-bold font-serif">{idx === 2 ? 'M' : 'S'}</span>
+                  </div>
+                )}
               </div>
-              <div className="p-10 relative bg-surface">
-                <div className="flex justify-between mb-8">
-                  <span className="tag bg-border px-4 py-2 rounded-full">{proj.tag}</span>
-                  <ArrowRight className="text-muted group-hover:text-clay group-hover:translate-x-1 transition-all" />
+              <div className="p-6 relative bg-surface">
+                <div className="flex justify-between mb-4">
+                  <span className="tag bg-border px-3 py-1.5 rounded-full text-[9px]">{proj.tag}</span>
+                  <ArrowRight size={16} className="text-muted group-hover:text-clay group-hover:translate-x-1 transition-all" />
                 </div>
-                <h4 className="text-3xl font-bold mb-4 leading-tight group-hover:text-clay transition-colors text-slate">
+                <h4 className="text-xl font-bold mb-2 leading-snug group-hover:text-clay transition-colors text-slate">
                   {proj.title}
                 </h4>
-                <p className="text-muted text-sm font-light">{proj.desc}</p>
+                <p className="text-muted text-xs font-light leading-relaxed">{proj.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -386,43 +383,39 @@
       </section>
     );
 
-    const Contact = () => {
-    const [subject, setSubject] = useState('Project Collaboration');
-    const [body, setBody] = useState('');
-
-    return (
+    const Contact = () => (
         <section id="contact" className="py-20 md:py-32 px-4 md:px-6 max-w-3xl mx-auto border-t border-border">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h3 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center text-slate">Let's Connect</h3>
             <p className="text-muted mb-8 md:mb-10 text-center text-sm md:text-base">Open to new roles, collaborations, or just chatting about RC aviation. Drop me a message!</p>
 
-            <div className="space-y-4 md:space-y-6 bg-surface p-6 md:p-12 rounded-[2rem] border border-border shadow-sm">
+            <form action="https://formspree.io/f/xlgqkegk" method="POST" className="space-y-4 md:space-y-6 bg-surface p-6 md:p-12 rounded-[2rem] border border-border shadow-sm">
             <div>
                 <label className="block text-sm font-bold text-slate mb-2">Subject</label>
                 <div className="relative">
-                <select value={subject} onChange={e => setSubject(e.target.value)} className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all appearance-none cursor-pointer">
+                <select name="subject" className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all appearance-none cursor-pointer">
                     <option>Job Offer / Opportunity</option>
-                    <option>Project Collaboration</option>
+                    <option selected>Project Collaboration</option>
                     <option>Just saying hi</option>
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" size={20} />
                 </div>
             </div>
             <div>
+                <label className="block text-sm font-bold text-slate mb-2">Your Email <span className="text-muted font-normal">(so I can reply)</span></label>
+                <input type="email" name="email" placeholder="you@example.com" className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all" required />
+            </div>
+            <div>
                 <label className="block text-sm font-bold text-slate mb-2">Message</label>
-                <textarea value={body} onChange={e => setBody(e.target.value)} rows={5} placeholder="Hello Giosuè..." className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all resize-none"></textarea>
+                <textarea name="message" rows={5} placeholder="Hello Giosuè..." className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all resize-none" required></textarea>
             </div>
-            <a 
-                href={`mailto:giosupalliotto@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
-                className="w-full justify-center bg-clay text-white px-8 py-4 rounded-2xl hover:bg-clay/80 transition-colors flex items-center gap-3 font-medium"
-            >
+            <button type="submit" className="w-full justify-center bg-clay text-white px-8 py-4 rounded-2xl hover:bg-clay/80 transition-colors flex items-center gap-3 font-medium">
                 <Send size={18} /> Send Message
-            </a>
-            </div>
+            </button>
+            </form>
         </motion.div>
         </section>
     );
-    };
 
  const Footer = () => (
   <footer className="py-10 md:py-16 px-4 md:px-6 border-t border-border bg-surface">
