@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giosuè Palliotto - Portfolio</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {
+          colors: {
+            bg: 'var(--bg-color)',
+            surface: 'var(--surface-color)',
+            clay: 'var(--clay-color)',
+            slate: 'var(--slate-color)',
+            muted: 'var(--muted-color)',
+            border: 'var(--border-color)',
+          },
+          fontFamily: {
+            sans: ['Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom CSS & Dark Mode Variables -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
+
+    :root {
+      --bg-color: #FDFBF7;
+      --surface-color: #FFFFFF;
+      --clay-color: #A35738;
+      --slate-color: #1D1D1F;
+      --muted-color: #78716C;
+      --border-color: #F5F5F4;
+      --grid-color: rgba(0, 0, 0, 0.03);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0c0a09;
+        --surface-color: #1c1917;
+        --clay-color: #E27D54;
+        --slate-color: #F5F5F4;
+        --muted-color: #A8A29E;
+        --border-color: #292524;
+        --grid-color: rgba(255, 255, 255, 0.03);
+      }
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--slate-color);
+      font-family: 'Outfit', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--clay-color);
+    }
+
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    }
+
+    .mountain-overlay {
+      position: fixed; bottom: 0; left: 0; width: 100%; height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23A35738' fill-opacity='0.03' d='M0,160L120,186.7C240,213,480,267,720,261.3C960,256,1200,192,1320,160L1440,128L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+      background-size: cover; z-index: -1; pointer-events: none;
+      opacity: 1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .mountain-overlay {
+        opacity: 0.3;
+      }
+    }
+  </style>
+
+  <!-- Import Maps for React, Framer Motion, and Lucide -->
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "framer-motion": "https://esm.sh/framer-motion@11.0.3?external=react,react-dom",
+        "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react,react-dom"
+      }
+    }
+  </script>
+  
+  <!-- Babel Standalone (Compiles JSX in the browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Application Code -->
+  <script type="text/babel" data-type="module">
+    import React, { useState } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+    import { Plane, Award, Send, ArrowRight, Github, Linkedin, FileText, Activity, Database, Cpu, Mountain, Utensils, Headphones, ChevronDown } from 'lucide-react';
+
+    const ParallaxBackground = () => {
+      const { scrollYProgress } = useScroll();
+      const smoothProgress = useSpring(scrollYProgress, { damping: 20, stiffness: 100 });
+      
+      const mountainY = useTransform(smoothProgress, [0, 1], ['0%', '20%']);
+      const blob1Y = useTransform(smoothProgress, [0, 1], ['0%', '40%']);
+      const blob2Y = useTransform(smoothProgress, [0, 1], ['0%', '-40%']);
+      const blob1X = useTransform(smoothProgress, [0, 1], ['0%', '15%']);
+      const blob2X = useTransform(smoothProgress, [0, 1], ['0%', '-15%']);
+
+      return (
+        <>
+          <div className="fixed top-0 left-0 w-[100vw] h-[100vh] z-[-2] overflow-hidden pointer-events-none">
+            <motion.div 
+              style={{ y: blob1Y, x: blob1X }}
+              className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-clay blur-[90px] rounded-full opacity-15"
+            />
+            <motion.div 
+              style={{ y: blob2Y, x: blob2X }}
+              className="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] bg-slate blur-[90px] rounded-full opacity-10"
+            />
+          </div>
+          <motion.div 
+            style={{ y: mountainY }}
+            className="mountain-overlay"
+          />
+        </>
+      );
+    };
+
+    const RCPlane = () => {
+      const { scrollYProgress } = useScroll();
+      const smoothProgress = useSpring(scrollYProgress, { damping: 15, stiffness: 100 });
+
+      // Plane movement
+      const x = useTransform(smoothProgress, p => `${10 + 75 * p + 25 * Math.sin(p * Math.PI * 2)}vw`);
+      const y = useTransform(smoothProgress, p => `${5 + 90 * p}vh`);
+      const rotate = useTransform(smoothProgress, p => {
+        const dx = 75 + 50 * Math.PI * Math.cos(p * Math.PI * 2);
+        const dy = 120;
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+        return angle;
+      });
+
+      return (
+        <motion.div
+          style={{ position: 'fixed', top: 0, left: 0, x, y, rotate, zIndex: 50, pointerEvents: 'none' }}
+          className="text-clay drop-shadow-2xl"
+        >
+          <svg width="56" height="56" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M256 16C242.7 16 232 26.7 232 40V145.4L48.8 282.8C43.5 286.8 40 293.1 40 300V344C40 350.2 46.5 354.4 52.2 351.5L232 261.6V400L168.8 447.4C163.5 451.4 160 457.7 160 464.6V488C160 494.2 166.5 498.4 172.2 495.5L256 453.6L339.8 495.5C345.5 498.4 352 494.2 352 488V464.6C352 457.7 348.5 451.4 343.2 447.4L280 400V261.6L459.8 351.5C465.5 354.4 472 350.2 472 344V300C472 293.1 468.5 286.8 463.2 282.8L280 145.4V40C280 26.7 269.3 16 256 16Z"/>
+          </svg>
+        </motion.div>
+      );
+    };
+
+    const Navbar = () => (
+      <nav className="fixed top-0 left-0 w-full bg-surface/80 backdrop-blur-md z-40 border-b border-border">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 h-12 md:h-14 flex items-center justify-between">
+          <span className="font-serif font-bold text-lg md:text-xl tracking-tight text-slate">GP</span>
+          <div className="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-muted">
+            <a href="#home" className="hover:text-clay transition-colors">Home</a>
+            <a href="#education" className="hover:text-clay transition-colors">Education</a>
+            <a href="#skills" className="hover:text-clay transition-colors">Skills</a>
+            <a href="#projects" className="hover:text-clay transition-colors">Projects</a>
+            <a href="#contact" className="hover:text-clay transition-colors">Contact</a>
+          </div>
+        </div>
+      </nav>
+    );
+
+    const Hero = () => (
+      <section id="home" className="min-h-screen flex flex-col justify-center px-4 md:px-6 max-w-6xl mx-auto relative pt-20 md:pt-18 pb-24 md:pb-16 mb-8 md:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 mt-10 md:mt-0"
+        >
+          <div className="flex-1 text-center md:text-left flex flex-col items-center md:items-start">
+            <span className="tag mb-4 md:mb-6 flex items-center gap-2">
+              <Activity size={14} /> Engineering Portfolio
+            </span>
+            <h1 className="text-5xl md:text-8xl font-bold mb-6 md:mb-10 text-slate tracking-tight leading-tight">
+              Giosuè <br className="hidden md:block"/><span className="text-clay">Palliotto</span>
+            </h1>
+            <p className="max-w-2xl text-lg md:text-2xl text-muted font-light leading-relaxed">
+              Double Master's student specializing in Data Engineering for Human Health. Researching the intersection of bioinformatics and neural signal processing.
+            </p>
+            <div className="mt-8 md:mt-10 mb-4 md:mb-0 flex items-center justify-center md:justify-start gap-4">
+              <a href="/CV/Giosue_Palliotto_CV.pdf" download="Giosue_Palliotto_CV.pdf" className="bg-clay text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl hover:bg-clay/80 transition-colors flex items-center gap-3 font-medium shadow-lg shadow-clay/20 w-fit text-sm md:text-base">
+                <FileText size={18} /> Download CV
+              </a>
+            </div>
+          </div>
+          
+          <div className="w-40 h-40 md:w-72 md:h-72 shrink-0 relative group">
+            <div className="absolute inset-0 bg-clay/10 rounded-full blur-2xl group-hover:bg-clay/20 transition-colors duration-500"></div>
+            <div className="relative w-full h-full rounded-full border-4 border-surface shadow-xl overflow-hidden bg-border flex items-center justify-center">
+              <img 
+                src="images/profile_pic.jpeg" 
+                alt="Giosuè Palliotto" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </section>
+    );
+
+    const ProfileBanner = () => (
+      <section className="px-4 md:px-6 max-w-6xl mx-auto mb-16 md:mb-24 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }}
+          className="grid grid-cols-2 gap-4 md:gap-8 p-5 md:p-8 bg-surface/60 backdrop-blur-md rounded-3xl border border-border shadow-sm"
+        >
+          <div className="flex flex-col border-r border-border pr-4 md:pr-8">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted mb-4">Languages</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm font-medium text-slate">
+              <div className="flex flex-col gap-1.5">
+                <span className="text-slate">Italian</span>
+                <span className="text-[10px] text-clay bg-clay/10 px-2 py-0.5 rounded-full w-fit">Native</span>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-slate">English</span>
+                <span className="text-[10px] text-clay bg-clay/10 px-2 py-0.5 rounded-full w-fit">C1</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col pl-2 md:pl-0">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted mb-4">Interests</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-4 text-sm font-medium text-slate">
+              <span className="flex items-center gap-2"><Plane size={16} className="text-clay shrink-0"/> <span className="truncate">RC Flight</span></span>
+              <span className="flex items-center gap-2"><Mountain size={16} className="text-clay shrink-0"/> <span className="truncate">Hiking</span></span>
+              <span className="flex items-center gap-2"><Utensils size={16} className="text-clay shrink-0"/> <span className="truncate">Cooking</span></span>
+              <span className="flex items-center gap-2"><Headphones size={16} className="text-clay shrink-0"/> <span className="truncate">Music</span></span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+    );
+
+    const Education = () => (
+      <section id="education" className="py-20 md:py-32 bg-surface/60 border-y border-border relative overflow-hidden">
+        <div className="absolute -right-20 top-10 opacity-5 text-clay">
+          <Database size={400} />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 md:gap-24 items-start relative z-10">
+          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center md:text-left text-slate">T.I.M.E. Double Degree Program</h3>
+            <p className="text-muted text-lg leading-relaxed mb-10 text-justify">
+              A coordinated international specialization between Italy and Denmark. This program allows to work on the integration of medical bioengineering principles with a high-performance computational infrastructure.
+            </p>
+            <div className="flex items-center space-x-6 p-6 bg-surface rounded-3xl shadow-sm border border-border">
+              <div className="w-12 h-12 bg-clay/10 rounded-full flex items-center justify-center text-clay">
+                <Award size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted">Excellence Scholarship</p>
+                <p className="text-sm font-medium text-slate">T.I.M.E. (Top International Managers in Engineering)</p>
+                <p className="text-sm text-muted">2025-2027</p>
+              </div>
+            </div>
+          </motion.div>
+          <div className="grid gap-8">
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-surface p-10 rounded-[2.5rem] border border-border shadow-sm">
+              <span className="tag mb-2 block">DTU, Denmark</span>
+              <h4 className="text-xl font-bold mb-1 text-slate">MSc Bioinformatics</h4>
+              <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2025-Present</p>
+              <p className="text-sm text-muted font-medium">Genomic data representation and large-scale computational infrastructure.</p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface p-10 rounded-[2.5rem] border border-border shadow-sm">
+              <span className="tag mb-2 block tracking-widest">UniPD, Italy</span>
+              <h4 className="text-xl font-bold mb-1 text-slate">MSc Bioengineering</h4>
+              <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2024-Present</p>
+              <p className="text-sm text-muted font-medium">Neural engineering, digital signal processing, and medical modeling.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Skills = () => (
+      <section id="skills" className="py-20 md:py-32 px-4 md:px-6 max-w-6xl mx-auto bg-grid">
+        <motion.h3 initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold mb-12 md:mb-24 flex items-center justify-center md:justify-start gap-4 text-slate">
+          <Cpu className="text-clay" size={32} /> Analytical Workbench
+        </motion.h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+          {[
+            { title: 'Computational', skills: ['Python', 'MATLAB', 'R', 'Git / GitHub', 'SQLite'] },
+            { title: 'Bio-Data Science', skills: ['Statistical Modeling', 'Data Amalgamation and Analysis', 'Data Visualization', 'Signal Processing', 'NGS & WGS Workflows', 'Machine Learning'] },
+            { title: 'Physical Design', skills: ['SolidWorks & Fusion360', 'Rapid Prototyping', 'Laser Cutting & 3D Printing', 'Drone Mission Planner', 'UAV Configuration'] }
+          ].map((col, idx) => (
+            <motion.div key={idx} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} className="border-l border-border pl-6 hover:border-clay transition-colors duration-300">
+              <span className="tag mb-10 block">{col.title}</span>
+              <ul className="space-y-5 text-[15px] font-medium text-slate">
+                {col.skills.map(skill => (
+                  <motion.li 
+                    key={skill} 
+                    whileHover={{ x: 10, color: '#A35738' }} 
+                    className="transition-colors cursor-default flex items-center gap-2"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {skill}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const Projects = () => (
+      <section id="projects" className="py-20 md:py-32 px-4 md:px-6 max-w-6xl mx-auto border-t border-border">
+        <motion.h3
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-bold mb-12 md:mb-20 text-slate text-center md:text-left"
+        >
+          Projects Portfolio
+        </motion.h3>
+
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          {[
+            { tag: 'Report', title: 'Crime Patterns & Evolution', desc: 'Combined spatial and temporal analysis of 20 years of urban crime data.', img: 'images/temporal-trends.png', link: 'case-study-1.html' },
+            { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'rc-support.html' }
+          ].map((proj, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.2 }}
+              className="bg-surface rounded-[2rem] border border-border overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer relative"
+              whileHover={{ y: -8 }}
+              onClick={() => window.location.href = proj.link} // <-- navigate on click
+            >
+              <div className="h-64 bg-border overflow-hidden relative">
+                <div className="absolute inset-0 bg-slate/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                <img
+                  src={proj.img}
+                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  alt={proj.title}
+                />
+              </div>
+              <div className="p-10 relative bg-surface">
+                <div className="flex justify-between mb-8">
+                  <span className="tag bg-border px-4 py-2 rounded-full">{proj.tag}</span>
+                  <ArrowRight className="text-muted group-hover:text-clay group-hover:translate-x-1 transition-all" />
+                </div>
+                <h4 className="text-3xl font-bold mb-4 leading-tight group-hover:text-clay transition-colors text-slate">
+                  {proj.title}
+                </h4>
+                <p className="text-muted text-sm font-light">{proj.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const Contact = () => {
+    const [subject, setSubject] = useState('Project Collaboration');
+    const [body, setBody] = useState('');
+
+    return (
+        <section id="contact" className="py-20 md:py-32 px-4 md:px-6 max-w-3xl mx-auto border-t border-border">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center text-slate">Let's Connect</h3>
+            <p className="text-muted mb-8 md:mb-10 text-center text-sm md:text-base">Open to new roles, collaborations, or just chatting about RC aviation. Drop me a message!</p>
+
+            <div className="space-y-4 md:space-y-6 bg-surface p-6 md:p-12 rounded-[2rem] border border-border shadow-sm">
+            <div>
+                <label className="block text-sm font-bold text-slate mb-2">Subject</label>
+                <div className="relative">
+                <select value={subject} onChange={e => setSubject(e.target.value)} className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all appearance-none cursor-pointer">
+                    <option>Job Offer / Opportunity</option>
+                    <option>Project Collaboration</option>
+                    <option>Just saying hi</option>
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" size={20} />
+                </div>
+            </div>
+            <div>
+                <label className="block text-sm font-bold text-slate mb-2">Message</label>
+                <textarea value={body} onChange={e => setBody(e.target.value)} rows={5} placeholder="Hello Giosuè..." className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all resize-none"></textarea>
+            </div>
+            <a 
+                href={`mailto:giosupalliotto@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
+                className="w-full justify-center bg-clay text-white px-8 py-4 rounded-2xl hover:bg-clay/80 transition-colors flex items-center gap-3 font-medium"
+            >
+                <Send size={18} /> Send Message
+            </a>
+            </div>
+        </motion.div>
+        </section>
+    );
+    };
+
+ const Footer = () => (
+  <footer className="py-10 md:py-16 px-4 md:px-6 border-t border-border bg-surface">
+    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+      <div className="flex items-center gap-6 text-sm font-bold uppercase tracking-widest text-muted">
+        <a href="https://www.linkedin.com/in/giosue-palliotto/" target="_blank" rel="noreferrer" className="hover:text-clay transition-colors flex items-center gap-2">
+          <Linkedin size={16}/> LinkedIn
+        </a>
+        <a href="https://github.com/pi-cco" target="_blank" rel="noreferrer" className="hover:text-clay transition-colors flex items-center gap-2">
+          <Github size={16}/> GitHub
+        </a>
+        <a href="/CV/Giosue_Palliotto_CV.pdf" className="hover:text-clay transition-colors flex items-center gap-2">
+          <FileText size={16}/> CV
+        </a>
+        <a href="mailto:giosupalliotto@gmail.com" className="hover:text-clay transition-colors flex items-center gap-2">
+          <Send size={16}/> Email
+        </a>
+      </div>
+      <p className="text-[10px] text-muted font-bold uppercase tracking-[0.3em]">&copy; 2026 Giosuè Palliotto</p>
+    </div>
+  </footer>
+);
+
+    const App = () => {
+      return (
+        <div className="relative">
+          <ParallaxBackground />
+          <RCPlane />
+          <Navbar />
+          <main>
+            <Hero />
+            <ProfileBanner />
+            <Education />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      );
+    }
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
