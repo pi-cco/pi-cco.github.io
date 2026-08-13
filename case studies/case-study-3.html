@@ -88,7 +88,7 @@ const Parallax = () => {
 };
 
 const Navbar = () => (
-  <nav className="p-8 sticky top-0 bg-surface/80 backdrop-blur-md z-50">
+  <nav className="p-4 md:p-8 sticky top-0 bg-surface/80 backdrop-blur-md z-50">
     <a href="../index.html" className="tag hover:text-clay transition flex items-center">
       ← Portfolio
     </a>
@@ -103,7 +103,7 @@ const Plot = ({src, caption}) => (
 );
 
 const Section = ({title, children}) => (
-  <motion.section initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="mb-32">
+  <motion.section initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="mb-16 md:mb-32">
     {children}
   </motion.section>
 );
@@ -114,9 +114,9 @@ const App = () => (
     <Parallax />
     <Navbar />
     <main className="max-w-5xl mx-auto px-6 py-20">
-      <header className="mb-32">
+      <header className="mb-16 md:mb-32">
         <span className="tag mb-4 block">Case Study // Data Analysis</span>
-        <h1 className="text-5xl md:text-7xl font-bold mb-12 tracking-tight leading-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-12 tracking-tight leading-tight">
           Movie Industry <br />
           <span className="text-clay">Economics & Patterns</span>
         </h1>
@@ -181,7 +181,7 @@ const App = () => (
         <Plot src="../visualizations/top10_summary.html" caption="Top 10 bad/profitable and good/unprofitable films. Low-budget horror films with poor ratings achieve extraordinary ROI, while critically acclaimed dramas frequently lose money. The market rewards efficiency over quality." />
       </Section>
 
-      <div className="p-12 glass-panel relative overflow-hidden mb-20">
+      <div className="p-6 md:p-12 glass-panel relative overflow-hidden mb-20">
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-clay/30"></div>
         <h4 className="font-bold text-clay uppercase text-[10px] mb-4 tracking-[0.3em]">Key Insight</h4>
         <p className="text-xl font-medium text-slate-800 leading-relaxed">
