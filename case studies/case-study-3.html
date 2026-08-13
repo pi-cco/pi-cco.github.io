@@ -89,7 +89,7 @@ const Parallax = () => {
 
 const Navbar = () => (
   <nav className="p-8 sticky top-0 bg-surface/80 backdrop-blur-md z-50">
-    <a href="index.html" className="tag hover:text-clay transition flex items-center">
+    <a href="../index.html" className="tag hover:text-clay transition flex items-center">
       ← Portfolio
     </a>
   </nav>
@@ -130,7 +130,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           The budget distribution across the film industry is heavily right-skewed. The vast majority of films are produced with modest budgets under $50 million, while a small number of blockbusters dominate the high end of the spending spectrum. This log-normal-like pattern is typical of creative industries where access to capital is uneven and a few large studios control most high-budget productions. The long tail of low-budget films represents independent productions, genre films, and niche projects that operate with limited financial resources. Understanding this distribution is essential for contextualising the relationship between spending and performance.
         </p>
-        <Plot src="visualizations/budget_distribution.html" caption="Budget distribution across the dataset. The histogram shows a strong right skew with most films concentrated at lower budget levels and a long tail of high-budget blockbusters." />
+        <Plot src="../visualizations/budget_distribution.html" caption="Budget distribution across the dataset. The histogram shows a strong right skew with most films concentrated at lower budget levels and a long tail of high-budget blockbusters." />
       </Section>
 
       <Section>
@@ -138,7 +138,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           When plotting budget against average user rating, no clear positive correlation emerges. Higher spending does not guarantee better reviews — in fact, some of the highest-rated films were produced on modest budgets, while many expensive productions received mediocre ratings. This decoupling suggests that creative quality and audience appreciation are not driven by financial investment. The scatter plot reveals a wide spread across all budget levels, with the highest density of films falling in the 5-7 rating range regardless of budget size. A few outliers at the top-left corner (low budget, high rating) and bottom-right (high budget, low rating) illustrate the extremes of this disconnect.
         </p>
-        <Plot src="visualizations/budget_vs_rating.html" caption="Budget vs average vote rating. No clear correlation exists — high-budget films do not systematically receive higher ratings, and many low-budget productions achieve strong audience scores." />
+        <Plot src="../visualizations/budget_vs_rating.html" caption="Budget vs average vote rating. No clear correlation exists — high-budget films do not systematically receive higher ratings, and many low-budget productions achieve strong audience scores." />
       </Section>
 
       <Section>
@@ -146,7 +146,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           The relationship between budget and ROI reveals a striking inverse pattern: the highest returns on investment come from the lowest-budget productions. Films made for under $1 million frequently achieve ROI ratios that blockbusters could never match, simply because their break-even point is orders of magnitude lower. The zoomed view of the low-budget region shows that horror and thriller films dominate this high-ROI segment, as they can be produced cheaply and often find dedicated audiences. Meanwhile, big-budget productions rarely exceed 2-3x ROI due to their enormous cost bases, making them far riskier investments despite their revenue potential.
         </p>
-        <Plot src="visualizations/budget_vs_roi_zoom.html" caption="Budget vs ROI (zoomed to low-budget region). The highest ROI values are concentrated among films made for under $5 million, with horror and thriller genres dominating this efficient segment." />
+        <Plot src="../visualizations/budget_vs_roi_zoom.html" caption="Budget vs ROI (zoomed to low-budget region). The highest ROI values are concentrated among films made for under $5 million, with horror and thriller genres dominating this efficient segment." />
       </Section>
 
       <Section>
@@ -154,7 +154,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           Different genres occupy distinct regions of the budget-ROI space. Horror and thriller films cluster in the low-budget, high-ROI quadrant, reflecting their efficient production models and reliable audience demand. Adventure, sci-fi, and fantasy films require substantially larger investments and show more variable returns. Drama and comedy occupy a middle ground, with moderate budgets and moderate returns. This genre-based segmentation explains much of the variance in financial performance: the genre a film is made in largely determines its expected budget range and ROI potential, independent of the specific creative execution.
         </p>
-        <Plot src="visualizations/genre_heatmap.html" caption="Genre clustering in budget-ROI space. Horror and thriller occupy the low-budget high-ROI region, while adventure and sci-fi dominate the high-budget segment. Genre is a strong predictor of financial structure." />
+        <Plot src="../visualizations/genre_heatmap.html" caption="Genre clustering in budget-ROI space. Horror and thriller occupy the low-budget high-ROI region, while adventure and sci-fi dominate the high-budget segment. Genre is a strong predictor of financial structure." />
       </Section>
 
       <Section>
@@ -162,7 +162,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           Release timing reveals clear seasonal patterns in the film industry. Horror films peak heavily around October, aligning with Halloween season, while holiday-themed releases concentrate in December. Action and drama maintain relatively steady release patterns throughout the year, indicating their year-round audience appeal. The month-by-month genre distribution shows that studios strategically schedule releases to match seasonal demand, with summer months seeing a broader mix of blockbuster-oriented genres and winter months favouring awards-season dramas. These temporal patterns reflect both consumer behaviour and industry release strategies.
         </p>
-        <Plot src="visualizations/genre_month_heatmap.html" caption="Genre distribution by month. Horror peaks in October, holiday films in December, while action and drama maintain consistent presence year-round. Studios align release schedules with seasonal audience demand." />
+        <Plot src="../visualizations/genre_month_heatmap.html" caption="Genre distribution by month. Horror peaks in October, holiday films in December, while action and drama maintain consistent presence year-round. Studios align release schedules with seasonal audience demand." />
       </Section>
 
       <Section>
@@ -170,7 +170,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           User ratings follow a concentrated distribution with most films scoring between 5 and 7 out of 10. Very few films receive ratings below 3 or above 9, reflecting both audience leniency and the tendency of rating systems to compress towards the middle. The distribution is slightly left-skewed, indicating that films with very low ratings are rarer than those with high ratings, possibly because very poor films are less likely to receive a wide release or sufficient votes. This central clustering means that rating alone is a poor differentiator — most films are considered "average" by audiences, making the outliers on both ends particularly interesting for analysis.
         </p>
-        <Plot src="visualizations/ratings_distribution.html" caption="Distribution of average user ratings. Most films cluster between 5 and 7, with very few scoring below 3 or above 9. Ratings alone are a weak differentiator for most films." />
+        <Plot src="../visualizations/ratings_distribution.html" caption="Distribution of average user ratings. Most films cluster between 5 and 7, with very few scoring below 3 or above 9. Ratings alone are a weak differentiator for most films." />
       </Section>
 
       <Section>
@@ -178,7 +178,7 @@ const App = () => (
         <p className="text-muted leading-relaxed mb-6">
           The most striking finding of this analysis is the disconnect between critical reception and financial success. Films with the highest ROI are often those with below-average ratings — low-budget horror and exploitation films that found commercial success despite poor reviews. The Gallows, The Zombie Diaries, and Blood Feast exemplify this pattern: each was made for under $100,000 but generated millions in revenue, achieving ROI ratios of 100x or more. Conversely, critically acclaimed films like The Irishman, The Trial of the Chicago 7, and Space Sweepers failed to recover their budgets despite strong ratings. This paradox reveals that the film market rewards efficiency and genre appeal over critical quality, with the most profitable films being those that minimise cost rather than maximise artistic achievement.
         </p>
-        <Plot src="visualizations/top10_summary.html" caption="Top 10 bad/profitable and good/unprofitable films. Low-budget horror films with poor ratings achieve extraordinary ROI, while critically acclaimed dramas frequently lose money. The market rewards efficiency over quality." />
+        <Plot src="../visualizations/top10_summary.html" caption="Top 10 bad/profitable and good/unprofitable films. Low-budget horror films with poor ratings achieve extraordinary ROI, while critically acclaimed dramas frequently lose money. The market rewards efficiency over quality." />
       </Section>
 
       <div className="p-12 glass-panel relative overflow-hidden mb-20">

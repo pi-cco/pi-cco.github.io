@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giosuè Palliotto - Portfolio</title>
-  <meta name="description" content="Giosuè Palliotto — Double Master's student in Data Engineering for Human Health. Bioinformatics, neural signal processing, and data analysis portfolio.">
+  <meta name="description" content="Giosuè Palliotto — Double Master's student in Data Engineering for Human Health. Bioinformatics, signal processing, and data analysis portfolio.">
   <meta property="og:title" content="Giosuè Palliotto - Portfolio">
   <meta property="og:description" content="Double Master's student specializing in Data Engineering for Human Health.">
   <meta property="og:image" content="https://pi-cco.github.io/images/profile_pic.jpeg">
@@ -181,7 +181,7 @@
     );
 
     const Hero = () => (
-      <section id="home" className="min-h-screen flex flex-col justify-center px-4 md:px-6 max-w-6xl mx-auto relative pt-20 md:pt-18 pb-24 md:pb-16 mb-8 md:mb-12">
+      <section id="home" className="min-h-screen flex flex-col justify-center px-4 md:px-6 max-w-6xl mx-auto relative pt-20 md:pt-18 pb-16 md:pb-12 mb-6 md:mb-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@
               Giosuè <br className="hidden md:block"/><span className="text-clay">Palliotto</span>
             </h1>
             <p className="max-w-2xl text-lg md:text-2xl text-muted font-light leading-relaxed">
-              Double Master's student specializing in Data Engineering for Human Health. Researching the intersection of bioinformatics and neural signal processing.
+              Double Master's student specializing in Data Engineering for Human Health. Researching the intersection of bioinformatics and signal processing.
             </p>
             <div className="mt-8 md:mt-10 mb-4 md:mb-0 flex items-center justify-center md:justify-start gap-4">
               <a href="/CV/Giosue_Palliotto_CV.pdf" download="Giosue_Palliotto_CV.pdf" className="bg-clay text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl hover:bg-clay/80 transition-colors flex items-center gap-3 font-medium shadow-lg shadow-clay/20 w-fit text-sm md:text-base">
@@ -220,7 +220,7 @@
     );
 
     const ProfileBanner = () => (
-      <section className="px-4 md:px-6 max-w-6xl mx-auto mb-16 md:mb-24 relative z-10">
+      <section className="px-4 md:px-6 max-w-6xl mx-auto mb-10 md:mb-14 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           whileInView={{ opacity: 1, y: 0 }} 
@@ -255,17 +255,17 @@
     );
 
     const Education = () => (
-      <section id="education" className="py-20 md:py-32 bg-surface/60 border-y border-border relative overflow-hidden">
+      <section id="education" className="py-8 md:py-10 bg-surface/60 border-y border-border relative overflow-hidden">
         <div className="absolute -right-20 top-10 opacity-5 text-clay">
           <Database size={400} />
         </div>
         <div className="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 md:gap-24 items-start relative z-10">
           <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h3 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center md:text-left text-slate">T.I.M.E. Double Degree Program</h3>
-            <p className="text-muted text-lg leading-relaxed mb-10 text-justify">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 md:mb-5 text-center md:text-left text-slate">T.I.M.E. Double Degree Program</h3>
+            <p className="text-muted text-lg leading-relaxed mb-6 text-justify">
               A coordinated international specialization between Italy and Denmark. This program allows to work on the integration of medical bioengineering principles with a high-performance computational infrastructure.
             </p>
-            <div className="flex items-center space-x-6 p-6 bg-surface rounded-3xl shadow-sm border border-border">
+            <div className="flex items-center space-x-6 p-4 bg-surface rounded-3xl shadow-sm border border-border">
               <div className="w-12 h-12 bg-clay/10 rounded-full flex items-center justify-center text-clay">
                 <Award size={24} />
               </div>
@@ -276,18 +276,24 @@
               </div>
             </div>
           </motion.div>
-          <div className="grid gap-8">
-            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-surface p-10 rounded-[2.5rem] border border-border shadow-sm">
-              <span className="tag mb-2 block">DTU, Denmark</span>
+          <div className="grid gap-6">
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-surface p-6 rounded-[2.5rem] border border-border shadow-sm">
+              <span className="tag mb-2 block">Danish Technical University (DTU), Denmark</span>
               <h4 className="text-xl font-bold mb-1 text-slate">MSc Bioinformatics</h4>
               <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2025-Present</p>
               <p className="text-sm text-muted font-medium">Genomic data representation and large-scale computational infrastructure.</p>
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface p-10 rounded-[2.5rem] border border-border shadow-sm">
-              <span className="tag mb-2 block tracking-widest">UniPD, Italy</span>
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface p-6 rounded-[2.5rem] border border-border shadow-sm">
+              <span className="tag mb-2 block tracking-widest">University of Padua (UNIPD), Italy</span>
               <h4 className="text-xl font-bold mb-1 text-slate">MSc Bioengineering</h4>
               <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2024-Present</p>
-              <p className="text-sm text-muted font-medium">Neural engineering, digital signal processing, and medical modeling.</p>
+              <p className="text-sm text-muted font-medium">Advanced medical image and signal processing, and physiological modeling.</p>
+            </motion.div>
+              <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface p-6 rounded-[2.5rem] border border-border shadow-sm">
+              <span className="tag mb-2 block tracking-widest">University of Padua (UNIPD), Italy</span>
+              <h4 className="text-xl font-bold mb-1 text-slate">BSc Biomedical engineering</h4>
+              <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2024-Present</p>
+              <p className="text-sm text-muted font-medium">Engineering foundamentals and signal processing.</p>
             </motion.div>
           </div>
         </div>
@@ -295,8 +301,8 @@
     );
 
     const Skills = () => (
-      <section id="skills" className="py-20 md:py-32 px-4 md:px-6 max-w-6xl mx-auto bg-grid">
-        <motion.h3 initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold mb-12 md:mb-24 flex items-center justify-center md:justify-start gap-4 text-slate">
+      <section id="skills" className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto bg-grid">
+        <motion.h3 initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold mb-8 md:mb-10 flex items-center justify-center md:justify-start gap-4 text-slate">
           <Cpu className="text-clay" size={32} /> Analytical Workbench
         </motion.h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
@@ -326,22 +332,23 @@
     );
 
     const Projects = () => (
-      <section id="projects" className="py-20 md:py-32 px-4 md:px-6 max-w-6xl mx-auto border-t border-border">
+      <section id="projects" className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto border-t border-border">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold mb-12 md:mb-20 text-slate text-center md:text-left"
+          className="text-4xl md:text-5xl font-bold mb-8 md:mb-10 text-slate text-center md:text-left"
         >
           Projects Portfolio
         </motion.h3>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {[
-            { tag: 'Report', title: 'Crime Patterns & Evolution', desc: 'Combined spatial and temporal analysis of 20 years of urban crime data.', img: 'images/temporal-trends.png', link: 'case-study-1.html' },
-            { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'case-study-2.html' },
-            { tag: 'Report', title: 'Movie Industry Economics', desc: 'Analysis of budget, revenue and ratings uncovering the disconnect between financial success and critical acclaim.', img: 'visualizations/budget_vs_rating.png', link: 'case-study-3.html' },
-            { tag: 'Report', title: 'Smash Bros Skills Analysis', desc: 'Compositional data analysis of Super Smash Bros character skills using ILR, clustering and subcompositional PCA.', img: 'visualizations/ternary.png', link: 'case-study-4.html' }
+            { tag: 'Report', title: 'Crime Patterns & Evolution', desc: 'Combined spatial and temporal analysis of 20 years of urban crime data.', img: 'images/temporal-trends.png', link: 'case studies/case-study-1.html' },
+            { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'case studies/case-study-2.html' },
+            { tag: 'Report', title: 'Movie Industry Economics', desc: 'Analysis of budget, revenue and ratings uncovering the disconnect between financial success and critical acclaim.', img: 'visualizations/budget_vs_rating.png', link: 'case studies/case-study-3.html' },
+            { tag: 'Report', title: 'Smash Bros Skills Analysis', desc: 'Compositional data analysis of Super Smash Bros character skills using ILR, clustering and subcompositional PCA.', img: 'visualizations/ternary.png', link: 'case studies/case-study-4.html' },
+            { tag: 'Hackathon', title: 'ValHacks Spotify Recommender', desc: 'Multi-day hackathon by IDA, Accenture and BEST Copenhagen. Built a content-based music recommender on 114k+ Spotify tracks.', img: 'images/valhacks-event.jpg', link: 'case studies/case-study-5.html' }
           ].map((proj, idx) => (
             <motion.div
               key={idx}
@@ -370,7 +377,7 @@
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-6xl opacity-10 font-bold font-serif">{idx === 2 ? 'M' : 'S'}</span>
+                    <span className="text-6xl opacity-10 font-bold font-serif">{proj.letter || (idx === 2 ? 'M' : 'S')}</span>
                   </div>
                 )}
               </div>
@@ -391,7 +398,7 @@
     );
 
     const Contact = () => (
-        <section id="contact" className="py-20 md:py-32 px-4 md:px-6 max-w-3xl mx-auto border-t border-border">
+        <section id="contact" className="py-12 md:py-16 px-4 md:px-6 max-w-3xl mx-auto border-t border-border">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h3 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center text-slate">Let's Connect</h3>
             <p className="text-muted mb-8 md:mb-10 text-center text-sm md:text-base">Open to new roles, collaborations, or just chatting. Drop me a message!</p>
