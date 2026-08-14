@@ -321,7 +321,19 @@
               <span className="tag mb-2 block tracking-widest">University of Padua (UNIPD), Italy</span>
               <h4 className="text-xl font-bold mb-1 text-slate">BSc Biomedical engineering</h4>
               <p className="text-muted text-[10px] font-bold mb-4 uppercase tracking-widest">2024-Present</p>
-              <p className="text-sm text-muted font-medium">Engineering foundamentals and signal processing.</p>
+              <p className="text-sm text-muted font-medium mb-6">Engineering foundamentals and signal processing.</p>
+              <div className="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col items-center sm:flex-row sm:items-stretch">
+                <a className="shrink-0 block w-full sm:w-auto" target="_blank" rel="noopener noreferrer" href="https://bestr.it/award/show/JXEu_S3tT9GvhWS3JJBpnQ?ln=en">
+                  <img className="w-28 h-28 mx-auto sm:mx-0 sm:w-[125px] sm:h-[125px] object-cover" src="images/bestr-badge-bsc.png" alt="Bachelor's Degree in Biomedical Engineering badge" loading="lazy" />
+                </a>
+                <div className="p-3 sm:p-4 flex-1 min-w-0 text-center sm:text-left">
+                  <a className="block font-semibold text-slate-900 text-[15px] leading-tight mb-1" target="_blank" rel="noopener noreferrer" href="https://bestr.it/award/show/JXEu_S3tT9GvhWS3JJBpnQ?ln=en">Bachelor's Degree in Biomedical Engineering</a>
+                  <p className="text-sm text-slate-600 leading-snug mb-1">
+                    The holder of this Badge has been awarded the Bachelor's Degree in Biomedical Engineering by the University of Padua.
+                  </p>
+                  <a className="text-xs text-slate-400" target="_blank" rel="noopener noreferrer" href="https://bestr.it/award/show/JXEu_S3tT9GvhWS3JJBpnQ?ln=en">Verify on bestr.it</a>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -370,7 +382,7 @@
           Projects Portfolio
         </motion.h3>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
           {[
             { tag: 'Report', title: 'Crime Patterns & Evolution', desc: 'Combined spatial and temporal analysis of 20 years of urban crime data.', img: 'images/temporal-trends.png', link: 'case studies/case-study-1.html' },
             { tag: 'Project', title: 'RC Aircraft Support', desc: 'Laser-cut and 3D printed modular support system for aircraft handling and maintenance.', img: 'images/photo_supp_1.png', link: 'case studies/case-study-2.html' },
@@ -388,7 +400,7 @@
               whileHover={{ y: -6 }}
               onClick={() => window.location.href = proj.link}
             >
-              <div className="h-44 bg-gradient-to-br from-clay/20 to-border overflow-hidden relative">
+              <div className="h-40 sm:h-44 bg-gradient-to-br from-clay/20 to-border overflow-hidden relative">
                 <div className="absolute inset-0 bg-slate/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
                 {proj.img ? (
                   <img
