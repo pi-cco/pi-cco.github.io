@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Industry Analysis | Portfolio</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://cdn.plot.ly">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -28,8 +36,6 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
-
   :root {
     --bg-color: #FDF8F5;
     --surface-color: #FFFFFF;
@@ -97,7 +103,7 @@ const Navbar = () => (
 
 const Plot = ({src, caption}) => (
   <div className="plot-wrap">
-    <iframe src={src} className="plot-frame"></iframe>
+    <iframe src={src} className="plot-frame" loading="lazy" title={caption || 'Visualization'}></iframe>
     {caption && <p className="text-muted text-sm leading-relaxed mt-4 px-2">{caption}</p>}
   </div>
 );

@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Super Smash Bros Skills Analysis | Portfolio</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://cdn.plot.ly">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -28,8 +36,6 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
-
   :root {
     --bg-color: #FDF8F5;
     --surface-color: #FFFFFF;
@@ -109,7 +115,7 @@ const Navbar = () => (
 
 const Plot = ({src, caption}) => (
   <div className="plot-wrap">
-    <iframe src={src} className="plot-frame"></iframe>
+    <iframe src={src} className="plot-frame" loading="lazy" title={caption || 'Visualization'}></iframe>
     {caption && <p className="text-muted text-sm leading-relaxed mt-4 px-2 italic">{caption}</p>}
   </div>
 );
@@ -220,11 +226,11 @@ const App = () => (
         </p>
         <div className="plot-row">
           <div className="plot-wrap">
-            <iframe src="../visualizations/power_speed_defense.html" className="plot-frame"></iframe>
+            <iframe src="../visualizations/power_speed_defense.html" className="plot-frame" loading="lazy" title="Ternary diagram of Power, Speed and Defence"></iframe>
             <p className="text-muted text-sm leading-relaxed mt-4 px-2 italic">Figure 4: Ternary diagram of the subcomposition {'{Power, Speed, Defence}'}. PC1 explains 96% of the subcompositional variance. The dashed black line is the PC1 direction; points are coloured by k=7 cluster.</p>
           </div>
           <div className="plot-wrap">
-            <iframe src="../visualizations/defence_recovery_power.html" className="plot-frame"></iframe>
+            <iframe src="../visualizations/defence_recovery_power.html" className="plot-frame" loading="lazy" title="Ternary diagram of Defence, Recovery and Power"></iframe>
             <p className="text-muted text-sm leading-relaxed mt-4 px-2 italic">Figure 5: Ternary diagram of the subcomposition {'{Defence, Recovery, Power}'}. PC1 explains 95.2% of the subcompositional variance.</p>
           </div>
         </div>

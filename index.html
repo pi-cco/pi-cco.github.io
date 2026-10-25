@@ -11,7 +11,15 @@
   <meta property="og:url" content="https://pi-cco.github.io">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  
+
+  <!-- Fonts & CDN preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://esm.sh" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
+
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -37,8 +45,6 @@
   
   <!-- Custom CSS & Dark Mode Variables -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
-
     :root {
       --bg-color: #FDF8F5;
       --surface-color: #FFFFFF;
@@ -239,6 +245,8 @@
               <img 
                 src="images/profile_pic.jpeg" 
                 alt="Giosuè Palliotto" 
+                decoding="async"
+                fetchpriority="high"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
@@ -407,13 +415,8 @@
                     src={proj.img}
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                     alt={proj.title}
-                  />
-                ) : proj.plot ? (
-                  <iframe
-                    src={proj.plot}
-                    className="w-full h-full border-none pointer-events-none"
-                    title={proj.title}
                     loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
@@ -447,9 +450,9 @@
             <div>
                 <label className="block text-sm font-bold text-slate mb-2">Subject</label>
                 <div className="relative">
-                <select name="subject" className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all appearance-none cursor-pointer">
+                <select name="subject" defaultValue="Project Collaboration" className="w-full p-4 rounded-2xl border border-border bg-surface text-slate focus:outline-none focus:border-clay focus:ring-1 focus:ring-clay transition-all appearance-none cursor-pointer">
                     <option>Job Offer / Opportunity</option>
-                    <option selected>Project Collaboration</option>
+                    <option>Project Collaboration</option>
                     <option>Just saying hi</option>
                 </select>
                 <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" size={20} />

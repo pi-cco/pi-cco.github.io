@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crime Data Analysis | Portfolio</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://cdn.plot.ly">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -28,8 +36,6 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
-
   :root {
     --bg-color: #FDF8F5;
     --surface-color: #FFFFFF;
@@ -119,7 +125,7 @@ const App = () => (
       <Section>
         <h3 className="tag mb-8 font-bold">I. Spatial Patterns</h3>
           <div className="bg-[#F0E8E4] p-4 rounded-2xl shadow-2xl border border-border mb-12">
-            <img src="../images/district-heatmap.png" className="w-full rounded-xl" alt="Heatmap" />
+            <img src="../images/district-heatmap.png" className="w-full rounded-xl" alt="Heatmap" loading="lazy" decoding="async" />
         </div>
         <h4 className="text-2xl font-bold mb-6">Geographic Concentration</h4>
         <p className="text-muted leading-relaxed mb-8">
@@ -144,7 +150,7 @@ const App = () => (
           </div>
         </div>
         <div className="bg-surface rounded-3xl overflow-hidden shadow-2xl border border-border mb-12">
-          <iframe src="../visualizations/yearly-animation.html" className="w-full h-[450px] md:h-[650px] border-none"></iframe>
+          <iframe src="../visualizations/yearly-animation.html" className="w-full h-[450px] md:h-[650px] border-none" loading="lazy" title="Yearly crime animation"></iframe>
         </div>
         <p className="text-muted text-lg leading-relaxed border-l-2 border-clay pl-8 mb-12">
           A clear behavioral shift appears between 2019 and 2022: interpersonal crimes decrease, while property-related incidents increase in low-occupancy areas.
@@ -155,7 +161,7 @@ const App = () => (
       <Section>
         <h3 className="tag mb-8 font-bold text-clay">III. Correlation Analysis</h3>
           <div className="bg-[#F0E8E4] p-4 rounded-2xl shadow-2xl border border-border mb-12">
-            <img src="../images/correlation-matrix.png" className="w-full rounded-xl" alt="Correlation" />
+            <img src="../images/correlation-matrix.png" className="w-full rounded-xl" alt="Correlation" loading="lazy" decoding="async" />
         </div>
         <div className="p-6 md:p-12 glass-panel relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-1 bg-clay/30"></div>

@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValHacks — Spotify Recommender | Portfolio</title>
+<title>ValHacks - Spotify Recommender | Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -28,8 +35,6 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
-
   :root {
     --bg-color: #FDF8F5;
     --surface-color: #FFFFFF;
@@ -119,7 +124,7 @@ const App = () => (
           Multi-day hackathon organized by IDA, Accenture and BEST Copenhagen. Our team built a content-based music recommender on a real Spotify dataset, iterating together through the whole pipeline — from data cleaning to a working, evaluated model.
         </p>
         <div className="bg-surface p-3 rounded-2xl shadow-xl border border-border overflow-hidden max-w-3xl">
-          <img src="../images/valhacks-event.jpg" alt="ValHacks hackathon at DTU Skylab" className="w-full rounded-xl object-cover" />
+          <img src="../images/valhacks-event.jpg" alt="ValHacks hackathon at DTU Skylab" className="w-full rounded-xl object-cover" decoding="async" fetchpriority="high" />
           <p className="text-muted text-xs px-2 pt-3">ValHacks · IDA, Accenture & BEST Copenhagen</p>
         </div>
       </header>
