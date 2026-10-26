@@ -112,8 +112,8 @@
   <script type="text/babel" data-type="module">
     import React from 'react';
     import { createRoot } from 'react-dom/client';
-    import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-    import { Plane, Award, Send, ArrowRight, Github, Linkedin, FileText, Activity, Database, Cpu, Mountain, Utensils, Headphones, ChevronDown } from 'lucide-react';
+    import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+    import { Plane, Award, Send, ArrowRight, Github, Linkedin, FileText, Activity, Database, Cpu, Mountain, Utensils, Headphones, ChevronDown, GraduationCap } from 'lucide-react';
 
     const ParallaxBackground = () => {
       const { scrollYProgress } = useScroll();
@@ -173,7 +173,7 @@
 
     const Navbar = () => {
       const [open, setOpen] = React.useState(false);
-      const links = ['Home', 'Education', 'Skills', 'Projects', 'Contact'];
+      const links = ['Home', 'Education', 'Transcript', 'Skills', 'Projects', 'Contact'];
       return (
         <nav className="fixed top-0 left-0 w-full bg-surface/80 backdrop-blur-md z-40 border-b border-border">
           <div className="max-w-6xl mx-auto px-4 md:px-6 h-12 md:h-14 flex items-center justify-between">
@@ -348,6 +348,283 @@
       </section>
     );
 
+    // Grade conversion: Italian 30-scale <-> Danish 12-step scale (indicative).
+    const IT_TO_DK = {
+      '30L': '12', '30': '12',
+      '29': '10', '28': '10',
+      '27': '7', '26': '7',
+      '25': '4', '24': '4',
+      '23': '02', '22': '02', '21': '02', '20': '02', '19': '02', '18': '02',
+      'IDO': 'BE (P)',
+    };
+    const DK_TO_IT = { '12': '30L', '10': '28', '7': '27', '4': '25', '02': '23' };
+    const GRADE_SCALE = [
+      { it: '30L – 30', dk: '12' },
+      { it: '29 – 28', dk: '10' },
+      { it: '27 – 26', dk: '7' },
+      { it: '25 – 24', dk: '4' },
+      { it: '23 – 18', dk: '02' },
+      { it: 'IDO', dk: 'BE (P)' },
+    ];
+    const toDanish = (vote) => IT_TO_DK[vote] || null;
+    const toItalian = (grade) => {
+      if (!grade) return null;
+      if (grade.indexOf('BE') === 0) return 'IDO';
+      const base = (grade.match(/^\d+/) || [])[0];
+      return base ? DK_TO_IT[base] || null : null;
+    };
+
+    const UNIPD_BSC = [
+      { id: 'IN06100061', ects: 12, year: '2021/22', date: '14/06/2022', en: 'Linear Algebra and Geometry', it: 'Algebra lineare e geometria', grade: '26' },
+      { id: 'IN10100190', ects: 12, year: '2021/22', date: '10/02/2022', en: 'Mathematical Analysis 1', it: 'Analisi matematica 1', grade: '25' },
+      { id: 'INP7078929', ects: 9, year: '2021/22', date: '21/06/2022', en: 'Biology, Physiology and Anatomy', it: 'Biologia, fisiologia e anatomia', grade: '25' },
+      { id: 'IN05103110', ects: 12, year: '2021/22', date: '27/06/2022', en: 'General Physics 1', it: 'Fisica generale 1', grade: '25' },
+      { id: 'INP7078928', ects: 9, year: '2021/22', date: '08/02/2022', en: 'Foundations of Chemistry for Bioengineering', it: 'Fondamenti di chimica per la bioingegneria', grade: '29' },
+      { id: 'INN1031400', ects: 3, year: '2021/22', date: '26/01/2022', en: 'English B2 (Receptive Skills)', it: 'Lingua inglese B2 (abilità ricettive)', grade: 'IDO' },
+      { id: 'IN01100950', ects: 6, year: '2022/23', date: '20/06/2023', en: 'Biomaterials', it: 'Biomateriali', grade: '27' },
+      { id: 'INL1000177', ects: 6, year: '2022/23', date: '03/02/2023', en: 'Elements of Physics 2', it: 'Elementi di fisica 2', grade: '26' },
+      { id: 'INP7078936', ects: 9, year: '2022/23', date: '24/01/2023', en: 'Elements of Computer Science and Programming', it: 'Elementi di informatica e programmazione', grade: '30' },
+      { id: 'INL1001825', ects: 9, year: '2022/23', date: '26/01/2023', en: 'Foundations of Mathematical Analysis and Probability', it: 'Fondamenti di analisi matematica e probabilità', grade: '28' },
+      { id: 'IN09111232', ects: 9, year: '2022/23', date: '31/08/2023', en: 'Foundations of Electronics', it: 'Fondamenti di elettronica', grade: '29' },
+      { id: 'INP7078937', ects: 9, year: '2022/23', date: '11/07/2023', en: 'Biological Systems Engineering', it: 'Ingegneria dei sistemi biologici', grade: '23' },
+      { id: 'IN08111231', ects: 9, year: '2022/23', date: '13/07/2023', en: 'Signals and Systems', it: 'Segnali e sistemi', grade: '20' },
+      { id: 'IN000226', ects: 6, year: '2022/23', date: '09/02/2023', en: 'Circuit Theory', it: 'Teoria dei circuiti', grade: '19' },
+      { id: 'INP7078881', ects: 6, year: '2023/24', date: '25/01/2024', en: 'Biomedical Signal Processing', it: 'Elaborazione di segnali biomedici', grade: '26' },
+      { id: 'INQ0094258', ects: 6, year: '2023/24', date: '24/06/2024', en: 'Human Movement Bioengineering', grade: '22' },
+      { id: 'IN01103924', ects: 9, year: '2023/24', date: '18/06/2024', en: 'Medical Informatics', it: 'Informatica medica', grade: '27' },
+      { id: 'IN01122612', ects: 9, year: '2023/24', date: '20/02/2024', en: 'Mechanics for Bioengineering', it: 'Meccanica per bioingegneria', grade: '28' },
+      { id: 'INM0014874', ects: 3, year: '2023/24', date: '25/09/2024', en: 'Final Project', it: 'Prova finale', grade: 'IDO' },
+      { id: 'INP7078879', ects: 9, year: '2023/24', date: '31/01/2024', en: 'Biomechanics', it: 'Biomeccanica', grade: '26' },
+      { id: 'IN10103342', ects: 9, year: '2023/24', date: '22/01/2024', en: 'Foundations of Automatic Control', it: 'Fondamenti di automatica', grade: '29' },
+      { id: 'INP7078880', ects: 9, year: '2023/24', date: '02/07/2024', en: 'Biomedical Technology and Instrumentation', it: 'Tecnologia e strumentazione biomedica', grade: '30L' },
+    ];
+
+    const UNIPD_MSC = [
+      { id: 'INP9086343', ects: 9, year: '2024/25', date: '26/06/2025', en: 'Bioimaging', grade: '22' },
+      { id: 'INQ1096858', ects: 9, year: '2024/25', date: '16/06/2025', en: 'Biomarkers, Precision Medicine and Drug Development', grade: '27' },
+      { id: 'INL1001851', ects: 9, year: '2024/25', date: '08/07/2025', en: 'Biological Signal Processing', grade: '26' },
+      { id: 'INQ0091585', ects: 9, year: '2024/25', date: '19/06/2025', en: 'Imaging for Neuroscience', grade: '24' },
+      { id: 'INP4068317', ects: 3, year: '2024/25', date: null, en: 'English B2 (Productive Skills)', grade: null },
+      { id: 'INP9087820', ects: 6, year: '2024/25', date: '27/06/2025', en: 'Machine Learning for Bioengineering', grade: '25' },
+      { id: 'INP9087105', ects: 9, year: '2024/25', date: '24/01/2025', en: 'Statistical Methods for Bioengineering', grade: '27' },
+      { id: 'INQ0091998', ects: 9, year: '2024/25', date: '20/01/2025', en: 'Modeling Methodology for Physiology and Medicine', grade: '24' },
+    ];
+
+    const DTU_COMPLETED = [
+      { id: '12106', ects: 5, term: 'Autumn 2025', en: 'Quantitative Methods to Assess Sustainability (Polytechnical Foundation)', grade: '12 (A)' },
+      { id: '22126', ects: 5, term: 'Autumn 2025', en: 'Next-Generation Sequencing Analysis', grade: '10 (B)' },
+      { id: '22160', ects: 5, term: 'Autumn 2025', en: 'R for Bio Data Science', grade: '10 (B)' },
+      { id: '23263', ects: 5, term: 'Autumn 2025', en: 'Advanced Modeling of Infectious Diseases', grade: '10 (B)' },
+      { id: '02275', ects: 5, term: 'Autumn 2025', en: 'Ethical Hacking', grade: '7' },
+      { id: '23205', ects: 5, term: 'Autumn 2025', en: 'Fighting Infectious Diseases', grade: '7' },
+      { id: '23257', ects: 5, term: 'Spring 2026', en: 'Compositional Data Analysis with Applications in Genomics', grade: '12 (A)' },
+      { id: '42504', ects: 5, term: 'Spring 2026', en: 'Innovation in Engineering', grade: 'BE (P)' },
+      { id: '02582', ects: 5, term: 'Spring 2026', en: 'Computational Data Analysis', grade: '4' },
+      { id: '02806', ects: 5, term: 'Spring 2026', en: 'Social Data Analysis and Visualization', grade: '7' },
+    ];
+
+    const DTU_CURRENT = [
+      { id: '22123', ects: 5, term: 'Autumn 2026', en: 'Computational Precision Medicine' },
+      { id: '30330', ects: 10, term: 'Autumn 2026', en: 'Image Analysis with Microcomputer' },
+      { id: '22112', ects: 5, term: 'Autumn 2026', en: 'High Performance Computing in Life Science' },
+      { id: '02805', ects: 10, term: 'Autumn 2026', en: 'Social Graphs and Interactions' },
+    ];
+
+    const DTU_ALL = [...DTU_COMPLETED, ...DTU_CURRENT];
+
+    const ExamRow = ({ id, ects, meta, title, subtitle, grade, converted, pending }) => (
+      <div className="py-2.5 border-b border-border/60 last:border-0 flex items-start justify-between gap-4 break-inside-avoid">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-0.5">
+            <span className="font-mono text-[10px] font-bold tracking-wider text-clay">{id}</span>
+            <span className="text-[10px] text-muted">{ects} ECTS</span>
+            {meta && (<>
+              <span className="text-[10px] text-muted/40">•</span>
+              <span className="text-[10px] text-muted">{meta}</span>
+            </>)}
+          </div>
+          <p className="text-sm font-medium text-slate leading-snug">{title}</p>
+          {subtitle && <p className="text-[11px] italic text-muted leading-snug mt-0.5">{subtitle}</p>}
+        </div>
+        {(grade || pending) && (
+          <div className="shrink-0 flex flex-col items-end gap-1 text-right">
+            {grade && <span className="text-sm font-bold text-slate leading-none whitespace-nowrap">{grade}</span>}
+            {converted && (
+              <span className="text-[10px] font-bold text-clay bg-clay/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                &rarr; {converted}
+              </span>
+            )}
+            {pending && (
+              <span className="text-[9px] font-bold uppercase tracking-widest text-muted bg-bg border border-border px-2 py-0.5 rounded-full whitespace-nowrap">
+                In progress
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    );
+
+    const TranscriptCard = ({ title, period, defaultOpen = true, children }) => {
+      const [open, setOpen] = React.useState(defaultOpen);
+      const panelId = React.useId();
+      return (
+        <div className="bg-surface rounded-3xl border border-border shadow-sm transition-colors hover:border-clay/30">
+          <button
+            type="button"
+            onClick={() => setOpen(o => !o)}
+            aria-expanded={open}
+            aria-controls={panelId}
+            className="w-full flex items-center gap-3 text-left p-4 md:p-5 rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+          >
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <h5 className="font-serif text-lg font-bold text-slate">{title}</h5>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted whitespace-nowrap">{period}</span>
+              </div>
+            </div>
+            <span className="shrink-0 w-8 h-8 rounded-full bg-bg border border-border text-muted flex items-center justify-center">
+              <ChevronDown size={16} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
+          <AnimatePresence initial={false}>
+            {open && (
+              <motion.div
+                key="panel"
+                id={panelId}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 md:px-5 pb-4 md:pb-5 md:columns-2 md:gap-x-8">{children}</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      );
+    };
+
+    const Transcript = () => (
+      <section id="transcript" className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto border-t border-border bg-grid scroll-mt-16">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 md:mb-10">
+          <span className="tag mb-3 flex items-center gap-2">
+            <GraduationCap size={14} /> Academic Record
+          </span>
+          <h3 className="text-3xl md:text-4xl font-bold text-slate mb-3">Exams &amp; Transcript</h3>
+          <p className="text-muted leading-relaxed max-w-3xl">
+            Every exam sat across the T.I.M.E. double degree: the Bachelor's and Master's degrees in Biomedical Engineering at the
+            University of Padua, and the Master's degree in Bioinformatics at DTU. Italian votes are paired with their Danish
+            12-step equivalent, and DTU grades with the Italian vote they would correspond to.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-surface/60 backdrop-blur-md border border-border rounded-[2.5rem] p-5 md:p-8 shadow-sm"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-clay/10 text-clay flex items-center justify-center shrink-0">
+                <GraduationCap size={22} />
+              </div>
+              <div>
+                <p className="tag">University of Padua &middot; Italy</p>
+                <h4 className="text-xl md:text-2xl font-bold text-slate leading-tight">Biomedical Engineering</h4>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-5">
+            <TranscriptCard title="Bachelor degree" period="2021 – 2024" defaultOpen={false}>
+              {UNIPD_BSC.map(c => (
+                <ExamRow
+                  key={c.id}
+                  id={c.id}
+                  ects={c.ects}
+                  meta={c.date ? `${c.year} · ${c.date}` : c.year}
+                  title={c.en}
+                  subtitle={c.it}
+                  grade={c.grade}
+                  converted={toDanish(c.grade)}
+                />
+              ))}
+            </TranscriptCard>
+            <TranscriptCard title="Master degree" period="2024 – present">
+              {UNIPD_MSC.map(c => (
+                <ExamRow
+                  key={c.id}
+                  id={c.id}
+                  ects={c.ects}
+                  meta={c.date ? `${c.year} · ${c.date}` : c.year}
+                  title={c.en}
+                  grade={c.grade}
+                  converted={toDanish(c.grade)}
+                />
+              ))}
+            </TranscriptCard>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-6 bg-surface/60 backdrop-blur-md border border-border rounded-[2.5rem] p-5 md:p-8 shadow-sm"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-clay/10 text-clay flex items-center justify-center shrink-0">
+                <GraduationCap size={22} />
+              </div>
+              <div>
+                <p className="tag">Technical University of Denmark &middot; Denmark</p>
+                <h4 className="text-xl md:text-2xl font-bold text-slate leading-tight">Bioinformatics</h4>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-5">
+            <TranscriptCard title="Master degree" period="2025 – present">
+              {DTU_ALL.map(c => (
+                <ExamRow
+                  key={c.id}
+                  id={c.id}
+                  ects={c.ects}
+                  meta={c.term}
+                  title={c.en}
+                  grade={c.grade}
+                  converted={toItalian(c.grade)}
+                  pending={!c.grade}
+                />
+              ))}
+            </TranscriptCard>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-6 bg-surface border border-border rounded-3xl p-5 md:p-6 shadow-sm"
+        >
+          <p className="tag mb-3">Italian &harr; Danish &middot; 12-step scale</p>
+          <div className="flex flex-wrap items-center gap-2">
+            {GRADE_SCALE.map(g => (
+              <span key={g.it} className="text-[11px] border border-clay/20 bg-clay/5 rounded-full px-3 py-1 text-slate whitespace-nowrap">
+                <span className="font-bold">{g.it}</span>
+                <span className="text-muted mx-1.5">&harr;</span>
+                <span className="font-bold text-clay">{g.dk}</span>
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] text-muted mt-3 leading-relaxed">
+            Conversions are indicative and intended for comparison only. The grade recorded on each official transcript is authoritative.
+          </p>
+        </motion.div>
+      </section>
+    );
+
     const Skills = () => (
       <section id="skills" className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto bg-grid">
         <motion.h3 initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-3xl md:text-4xl font-bold mb-8 md:mb-10 flex items-center justify-center md:justify-start gap-4 text-slate">
@@ -506,6 +783,7 @@
             <Hero />
             <ProfileBanner />
             <Education />
+            <Transcript />
             <Skills />
             <Projects />
             <Contact />
